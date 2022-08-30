@@ -1,0 +1,61 @@
+hur, 10,                          (lake and subbasin)
+ 0.157610E+11,                    (subbasin area in sq meters)
+1989-01-01, 2000-12-31,           (start date (y-m-d), end date (y-m-d))
+  0.34479E+01 ,                   (Tbase, deg. C)
+  0.27830E+00 ,                   (snowmelt factor, cm/deg/day)
+  0.61653E-01 ,                   (linear reservoir coefficient: percolation, per day)
+  0.10858E-08 ,                   (partial linear reservoir coefficient: USZ evap, cubic meters)
+  0.16276E+00 ,                   (linear reservoir coefficient: interflow, per day)
+  0.11365E+01 ,                   (linear reservoir coefficient: deep percolation, per day)
+  0.43802E-06 ,                   (partial linear reservoir coefficient: LSZ evap, cubic meters)
+  0.82814E-02 ,                   (linear reservoir coefficient: groundwater, per day)
+  0.17280E+00 ,                   (linear reservoir coefficient: surface flow, per day)
+  0.23027E+02 ,                   (Cons, calories per square centimeter)
+  0.19000E+03 ,                   (mid-monthly Jan daily surface insolation, langleys)
+  0.33000E+03 ,                   (mid-monthly Feb daily surface insolation, langleys)
+  0.49000E+03 ,                   (mid-monthly Mar daily surface insolation, langleys)
+  0.64000E+03 ,                   (mid-monthly Apr daily surface insolation, langleys)
+  0.77000E+03 ,                   (mid-monthly May daily surface insolation, langleys)
+  0.79000E+03 ,                   (mid-monthly Jun daily surface insolation, langleys)
+  0.77000E+03 ,                   (mid-monthly Jul daily surface insolation, langleys)
+  0.67000E+03 ,                   (mid-monthly Aug daily surface insolation, langleys)
+  0.51000E+03 ,                   (mid-monthly Sep daily surface insolation, langleys)
+  0.36000E+03 ,                   (mid-monthly Oct daily surface insolation, langleys)
+  0.20000E+03 ,                   (mid-monthly Nov daily surface insolation, langleys)
+  0.15000E+03 ,                   (mid-monthly Dec daily surface insolation, langleys)
+ 0.355000E+00 ,                   (1st empirical linear coefficient [ordinate-intercept] relating ratio of cloudy insolation/cloudless insolation to "cloud cover")
+ 0.680000E+00 ,                   (2nd empirical linear coefficient [slope] relating ratio of cloudy insolation/cloudless insolation to "cloud cover")
+  0.79705E+01 ,                   (upper soil zone capacity, cm)
+ Long term air temperature values used for calculation of potential evapotranspiration. deg C
+ Day,   Jan,   Feb,   Mar,   Apr,   May,   Jun,   Jul,   Aug,   Sep,   Oct,   Nov,   Dec
+   1,  -4.1,  -6.4,  -3.0,   4.2,  10.6,  16.5,  20.9,  21.1,  19.7,  13.1,   7.7,   0.0
+   2,  -4.1,  -6.4,  -2.8,   4.3,  10.7,  16.4,  20.9,  21.1,  19.4,  13.1,   7.6,  -0.2
+   3,  -4.0,  -6.4,  -2.6,   4.4,  10.9,  16.4,  20.8,  21.1,  19.0,  13.1,   7.2,  -0.3
+   4,  -4.1,  -6.2,  -2.3,   4.4,  11.0,  16.4,  20.7,  21.0,  18.9,  12.8,   6.7,  -0.3
+   5,  -4.7,  -6.1,  -1.9,   4.3,  11.3,  16.6,  20.7,  20.8,  18.8,  12.5,   6.2,  -0.3
+   6,  -4.8,  -6.1,  -1.8,   4.5,  11.7,  17.1,  20.8,  20.8,  18.6,  12.1,   5.5,  -0.5
+   7,  -5.1,  -5.9,  -1.8,   4.6,  12.0,  17.7,  20.9,  20.8,  18.4,  11.5,   5.1,  -0.8
+   8,  -5.8,  -5.8,  -1.8,   4.7,  12.3,  18.3,  21.1,  20.8,  18.3,  11.3,   4.9,  -1.1
+   9,  -6.1,  -5.9,  -1.8,   4.7,  12.5,  18.7,  21.1,  20.8,  18.2,  11.1,   4.7,  -1.5
+  10,  -6.1,  -5.8,  -1.9,   5.0,  12.5,  18.9,  21.1,  20.7,  18.0,  10.9,   4.4,  -2.0
+  11,  -6.4,  -5.8,  -1.6,   5.2,  12.6,  19.1,  21.1,  20.5,  17.8,  10.8,   4.2,  -2.3
+  12,  -6.4,  -5.9,  -1.2,   5.5,  12.6,  19.0,  21.2,  20.3,  17.7,  10.8,   3.9,  -2.5
+  13,  -5.9,  -5.8,  -0.8,   6.1,  12.9,  19.0,  21.2,  20.2,  17.3,  10.7,   3.8,  -2.7
+  14,  -5.8,  -5.5,  -0.4,   6.9,  13.2,  19.1,  21.4,  20.2,  16.9,  10.7,   3.6,  -2.9
+  15,  -5.9,  -5.3,  -0.2,   7.5,  13.4,  19.3,  21.6,  20.3,  16.5,  10.7,   3.5,  -2.9
+  16,  -6.1,  -5.2,  -0.1,   8.0,  13.5,  19.2,  21.7,  20.4,  16.1,  10.7,   3.6,  -3.0
+  17,  -6.3,  -5.0,  -0.0,   8.4,  13.8,  19.3,  21.9,  20.4,  15.9,  10.5,   3.7,  -3.1
+  18,  -6.6,  -4.7,   0.0,   8.7,  14.0,  19.5,  22.0,  20.2,  15.8,  10.2,   3.7,  -3.3
+  19,  -6.7,  -4.3,   0.1,   9.0,  14.1,  19.4,  22.0,  19.9,  15.7,   9.7,   3.6,  -3.6
+  20,  -6.7,  -4.0,   0.4,   9.2,  14.3,  19.4,  22.1,  19.7,  15.7,   9.3,   3.3,  -3.9
+  21,  -6.5,  -3.5,   0.7,   9.5,  14.6,  19.4,  22.1,  19.5,  15.6,   9.1,   3.0,  -4.1
+  22,  -6.2,  -3.1,   1.0,   9.6,  14.8,  19.5,  21.9,  19.5,  15.1,   8.9,   2.7,  -4.0
+  23,  -6.0,  -2.9,   1.2,   9.5,  15.0,  19.5,  21.8,  19.4,  14.4,   8.8,   2.2,  -3.9
+  24,  -5.7,  -2.9,   1.4,   9.5,  15.1,  19.6,  21.8,  19.5,  14.0,   8.8,   1.7,  -3.8
+  25,  -5.5,  -3.1,   1.5,   9.4,  15.1,  19.8,  21.8,  19.7,  13.7,   8.6,   1.4,  -4.0
+  26,  -5.4,  -3.3,   1.8,   9.5,  15.0,  20.1,  21.6,  20.0,  13.6,   8.4,   1.2,  -4.3
+  27,  -5.7,  -3.3,   2.3,   9.6,  15.1,  20.5,  21.6,  20.2,  13.5,   8.1,   1.0,  -4.6
+  28,  -6.0,  -3.3,   2.9,   9.8,  15.2,  20.7,  21.5,  20.4,  13.5,   7.8,   0.8,  -4.8
+  29,  -6.2,  -3.3,   3.4,  10.1,  15.5,  21.0,  21.4,  20.5,  13.4,   7.6,   0.6,  -4.8
+  30,  -6.5,-999.9,   3.9,  10.5,  16.0,  21.0,  21.3,  20.4,  13.2,   7.7,   0.4,  -4.7
+  31,  -6.5,-999.9,   4.2,-999.9,  16.4,-999.9,  21.2,  20.0,-999.9,   7.7,-999.9,  -4.2

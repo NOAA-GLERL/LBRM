@@ -1,0 +1,7 @@
+LBRM moisture storage boundary conditions to be used as non-conservative
+values; overwriting end-of-day values calculated by LBRM.
+Values are specified in centimeters over the subbasin area.
+Missing values are denoted by -999.999
+sup, 01, 2000-01-01, 2000-12-31,   <- basin, subbasin, start date (Y-M-D), end date (Y-M-D)
+YYYY-MM-DD,   UpperSoil,   LowerSoil, GroundWater, SurfaceZone, SnowWaterEq
+1999-12-31,       1.000,       5.000,      30.000,       3.000,       0.000

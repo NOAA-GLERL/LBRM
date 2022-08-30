@@ -1,0 +1,5 @@
+PARMFILE=param_sup01.csv
+BCFILE=  bounds_sup01.txt
+METFILE= met_sup01.csv
+OUTFILE= output_pet3.txt
+PETMETHOD=3
