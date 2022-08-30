@@ -685,7 +685,7 @@ MODULE LBRM_Compute
             
             !
             !  Heat balance
-            !
+            ! TODO: WHY IS THIS SECTION REPEATED AROUND LINE 780?!?!
             CALL SnowPackHeatBalance(AlbedS, Tmin, Tmax, Precip, Ta, Snw, Melt, Runoff)
             AvgRR = AvgRR + RR - (Melt * 1000000. * 79.7)
             IF (LBRM_PET_Method .EQ. 1) THEN
@@ -702,7 +702,6 @@ MODULE LBRM_Compute
                TPrime = Ta - LTAir
                LTRad  = LData%Parm%NetRads(MM, DD)
                IF (LTRad .eq. 0.0) LTRad = 1
-               write(*,*) LTRad
                RadRatio = NRad/LTRad
                HIndx  = HeatIndexMethod3(LTair, TPrime, TBase,RadRatio)
             END IF
