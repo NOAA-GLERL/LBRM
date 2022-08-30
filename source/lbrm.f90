@@ -792,7 +792,7 @@ MODULE LBRM_Compute
             LTAir  = LData%Parm%AirTemps(MM, DD)
             TPrime = Ta - LTAir
             LTRad  = LData%Parm%NetRads(MM, DD)
-            IF (LTRad .eq. 0.0) LTRad = 1E-5
+            IF (LTRad .eq. 0.0) LTRad = 
             RadRatio = NRad/LTRad
             HIndx  = HeatIndexMethod3(LTair, TPrime, TBase,RadRatio)
          END IF
