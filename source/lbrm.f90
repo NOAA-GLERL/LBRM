@@ -659,7 +659,8 @@ MODULE LBRM_Compute
             Tmax    = LData%Met%Values(2, MetIndx)                             ! deg C
             Precip  = LData%Met%Values(3, MetIndx) / 1000.0 * LData%Parm%Area  ! mm converted to cubic meters
          !  Next line added for Priestley-Taylor variant B. Lofgren 09/21 
-            IF (LBRM_PET_METHOD .eq. 3) NRad = LData%Met%Values(4, MetIndx)    ! Surface net radiation in W/m2
+            NRad = LData%Met%Values(4, MetIndx)    ! Surface net radiation in W/m2 ! debug
+            !IF (LBRM_PET_METHOD .eq. 3) NRad = LData%Met%Values(4, MetIndx)    ! Surface net radiation in W/m2
             DO J = 1, LData%Bndc%NumEntries
                IF (LData%Bndc%Dates(J) .EQ. Seq-1) THEN                        ! end-of-day for yesterday
                   IF (LData%Bndc%Values(5,J) .GE. 0.) THEN
@@ -685,7 +686,6 @@ MODULE LBRM_Compute
             
             !
             !  Heat balance
-            ! TODO: WHY IS THIS SECTION REPEATED AROUND LINE 780?!?!
             CALL SnowPackHeatBalance(AlbedS, Tmin, Tmax, Precip, Ta, Snw, Melt, Runoff)
             AvgRR = AvgRR + RR - (Melt * 1000000. * 79.7)
             IF (LBRM_PET_Method .EQ. 1) THEN
@@ -702,8 +702,10 @@ MODULE LBRM_Compute
                TPrime = Ta - LTAir
                LTRad  = LData%Parm%NetRads(MM, DD)
                IF (LTRad .gt. -1 .and. LTRad .lt. 1) LTRad = 1
-               RadRatio = NRad/LTRad
+               !RadRatio = NRad/LTRad
+               RadRatio = (NRad+100.0)/(LTRad+100.0)
                HIndx  = HeatIndexMethod3(LTair, TPrime, TBase,RadRatio)
+               !write(*,*) 'here'
             END IF
             AvgHPlE = AvgHPlE + HIndx
          END DO
@@ -793,11 +795,16 @@ MODULE LBRM_Compute
             TPrime = Ta - LTAir
             LTRad  = LData%Parm%NetRads(MM, DD)
             IF (LTRad .gt. -1 .and. LTRad .lt. 1) LTRad = 1
-            RadRatio = NRad/LTRad
+            !write(*,*) NRad ! debug
+            !RadRatio = NRad/LTRad
+            RadRatio = (NRad+100.0)/(LTRad+100.0)
             HIndx  = HeatIndexMethod3(LTair, TPrime, TBase,RadRatio)
          END IF
+         !if (hindx .lt. 0) write(*,*) HIndx
+         !write(*,*) HIndx
          HPLSE = HIndx / (596. - .52 * Ta) / 1000000. * Cons 
-         !write(*,*) Hindx
+         !if (hplse .lt. 0) write(*,*) hplse, hindx
+         !write(*,*) RadRatio, Hindx, HPLSE
 
          !
          !  Accumulate the volume of net supply (liquid precip + snowmelt) to 
@@ -811,6 +818,7 @@ MODULE LBRM_Compute
          !
          CALL Outflow(WatSply, Inflow, Runoff) ; IF (ErrorLevel .NE. 0) GOTO 899 
   
+         !write(*,*) Runoff
          !
          !  Copy output variables into the MyLbrmData structure.
          !  All of these values are in cubic meters.
@@ -881,8 +889,9 @@ MODULE LBRM_Compute
       IMPLICIT NONE
       REAL, INTENT(IN) :: T, TPrime, Tbase, RadRatio
       REAL             :: TempFactor
-      !TempFactor = EXP(Tprime/15.4) ! JAK TEMPORARY for testing
-      TempFactor = 1. + TPrime * 0.00432 /(0.0407 * exp(T/15.51) + 0.067)
+      TempFactor = EXP(Tprime/15.4) ! The TEMP factor used for CCC Mmethod
+      !TempFactor = 1. + TPrime * 0.00432 /(0.0407 * exp(T/15.51) + 0.067)
+      IF( EXP(T/Tbase) * TempFactor * RadRatio .LT. 0) write(*,*)  EXP(T/Tbase), TempFactor,  RadRatio
       HeatIndexMethod3 = EXP(T/Tbase) * TempFactor * RadRatio
       RETURN
       END FUNCTION HeatIndexMethod3
@@ -1020,7 +1029,7 @@ MODULE LBRM_Compute
       NSR = NS / CID
       USR = US / CID          
       EvPRp = Hplse / 2. / CID
-      !write(*,*) EvPRp
+      !if (evprp .lt. 0) write(*,*) EvPRp
       
       !
       !     Use iterative subroutine to determine EvPRp, if necessary.
@@ -1258,14 +1267,31 @@ MODULE LBRM_Compute
       ENDIF
       !R =  surfrunoff  + interflow + groundw + surfstorage - T(dummy)
       R = vRun + vInt + vGw + Ss - T
+      !IF (evprp .LT. -100) write(*,*) evprp
+
+
+!      IF (R .LT. 0) THEN
+!          write(*,*) "(EQUATION) R =  surfrunoff + interflow + groundw + surfstorage - T(dummy)"
+!          write(*,*) "R, vRun, vInt, vGw, Ss, T"
+!          write(*,*) R, vRun, vInt, vGw, Ss, T 
+!      ENDIF
       R = R + US - USR * (1. - EPN(-P * CID)) / P  
+      !IF (US .GT. B) THEN
+      !    write(*,*) "(EQUATION) R = R + US - USR * (1. - EPN(-P * CID)) / P"
+      !    write(*,*) "R ,US, LAST_TERM"
+      !    write(*,*) R ,US, USR * (1. - EPN(-P * CID)) / P
+      !ENDIF
+
+
       Ns = R * AlpSf / P
       Ss = T
       Ss = Ss + USR * (1. - EPN(-P * CID)) / P     
+      ! Evap = vUEv + vLEv + vGEv + R - Ns
       Evap = vUEv + vLEv + vGEv + R - Ns
+      !IF (Evap .LT. 0) write(*,*) 'evap negative too!'
 
       ! JAK debugging
-      !                               upsoilE, lowsoilE, groundE
+      !write(*,*) vRun, vInt, vGw, Ss, T
       !IF (Evap .LT. 0) write(*,*) Evap, vUEv, vLEv, vGEv, R, Ns
       !                        Evapot, lowsoilE components (R, -vInt, vDPr) 
       !IF (Evap .LT. -1) write(*,*) Evap, R, vInt, vDPr
@@ -2057,7 +2083,7 @@ CONTAINS
          READ(U1, 1100, ERR=812) Line
          CALL ParseCommaSepLine(Line, Strings, NumStr);  IF (ErrorLevel .NE. 0) GOTO 899
          !IF (NumStr .NE. 4 .and. NumStr .NE. 5) THEN !JAK added or 5
-         IF (NumStr .NE. NumVars+1) THEN
+         IF (NumStr .LT. NumVars+1) THEN
             WRITE(ErrorMessage, 5010) LineNum, TRIM(MetFileName);   CALL PassMsg
             GOTO 898
          END IF

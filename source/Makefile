@@ -57,7 +57,7 @@ ifeq ($(ThisOS), Windows)
    #CFLAGS = -Wall -Wmaybe-unitialized -g -O1 -static # jak used this for testing
 #   CFLAGS = -Wall -Wno-unused-function -Wno-target-lifetime -Wno-surprising -static
 else
-   CFLAGS = -g -O1
+   CFLAGS = -g -O1 -Wall
   # CFLAGS = -fcheck=all -g -O1
 endif
 
